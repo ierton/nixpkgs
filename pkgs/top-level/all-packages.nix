@@ -3675,7 +3675,9 @@ let
   freeglut = if stdenv.isDarwin then darwinX11AndOpenGL else
     callPackage ../development/libraries/freeglut { };
 
-  freetype = callPackage ../development/libraries/freetype { };
+  freetype = callPackage ../development/libraries/freetype {
+     useEncumberedCode = getConfig [ "freetype" "useEncumberedCode" ] false;
+  };
 
   fribidi = callPackage ../development/libraries/fribidi { };
 
