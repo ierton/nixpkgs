@@ -2836,6 +2836,11 @@ let
 
   lua4 = callPackage ../development/interpreters/lua-4 { };
   lua5 = callPackage ../development/interpreters/lua-5 { };
+
+  tolua = callPackage ../development/libraries/tolua { 
+    lua = lua5;
+  };
+
   lua5_0 = callPackage ../development/interpreters/lua-5/5.0.3.nix { };
   lua5_1 = callPackage ../development/interpreters/lua-5/5.1.nix { };
 
