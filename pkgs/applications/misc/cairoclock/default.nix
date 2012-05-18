@@ -4,14 +4,16 @@
 stdenv.mkDerivation rec {
 
   src = fetchurl {
-    url = "http://macslow.thepimp.net/projects/cairo-clock/cairo-clock_0.3.3-1.tar.gz";
-    sha256 = "812ca12792940138ce4d154d1d0d7d1e37295cf06ac7caf02935d5ebf845dc4c";
+    url = "http://ftp.de.debian.org/debian/pool/main/c/cairo-clock/cairo-clock_0.3.4.orig.tar.gz";
+    sha256 = "f310de5bc03473a190d691679a831cd305351744ccf6eb7701f43dda6cd98a8d";
   };
 
-  buildInputs = [glib libglade librsvg cairo gtk pango 
+  patches = [ ./ldflags.patch ];
+
+  buildInputs = [glib libglade librsvg cairo gtk pango
     pkgconfig intltool];
 
-  name = "cairoclock-0.3.3";
+  name = "cairoclock-0.3.4";
 
   meta = {
     description = "An analog clock displaying the system-time.";
