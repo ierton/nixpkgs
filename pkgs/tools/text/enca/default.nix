@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, libiconv ? null }:
+{ stdenv, fetchurl, recode, libiconv ? null }:
 
 stdenv.mkDerivation rec {
   name = "enca-1.13";
@@ -8,7 +8,12 @@ stdenv.mkDerivation rec {
     sha256 = "6c091455d524b3ddae3533fe9bb375092f60ad6fe252e0777c873bd7869c7432";
   };
 
-  buildInputs = (stdenv.lib.optional (libiconv != null) libiconv);
+  configureFlags = [
+    "--enable-external"
+    "--with-recode=${recode}"
+  ];
+
+  buildInputs = (stdenv.lib.optional (libiconv != null) libiconv) ++ [ recode ];
 
   meta = {
     homepage = http://freecode.com/projects/enca;
