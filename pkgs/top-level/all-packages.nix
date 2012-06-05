@@ -451,6 +451,8 @@ let
 
   autogen = callPackage ../development/tools/misc/autogen { };
 
+  apcupsd = callPackage ../os-specific/linux/apcupsd { };
+
   autojump = callPackage ../tools/misc/autojump { };
 
   avahi = callPackage ../development/libraries/avahi {
