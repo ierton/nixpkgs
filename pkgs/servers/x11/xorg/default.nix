@@ -696,7 +696,18 @@ let
     };
     buildInputs = [pkgconfig fontconfig freetype libX11 xproto libXrender ];
   })) // {inherit fontconfig freetype libX11 xproto libXrender ;};
-    
+
+  libXft_lcd = (stdenv.mkDerivation ((if overrides ? libXft then overrides.libXft else x: x) {
+    name = "libXft-2.2.0";
+    builder = ./builder.sh;
+    src = fetchurl {
+      url = mirror://xorg/X11R7.6/src/everything/libXft-2.2.0.tar.bz2;
+      sha256 = "1cprbz7xnxkb7axblw8sdaw9ibkngmz60d0ypk1drhd0dpjmls68";
+    };
+    patches = [ ./libXft-2.1.14-lcd-cleartype.patch ];
+    buildInputs = [pkgconfig fontconfig freetype xproto libXrender ];
+  })) // {inherit fontconfig freetype xproto libXrender ;};
+
   libXi = (stdenv.mkDerivation ((if overrides ? libXi then overrides.libXi else x: x) {
     name = "libXi-1.6.1";
     builder = ./builder.sh;
