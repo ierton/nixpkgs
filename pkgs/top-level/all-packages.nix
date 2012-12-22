@@ -7771,7 +7771,7 @@ let
     pythonBindings = false;
     perlBindings = false;
     javahlBindings = false;
-    saslSupport = false;
+    saslSupport = config.subversion.saslSupport or false;
     compressionSupport = true;
     httpd = apacheHttpd;
     sasl = cyrus_sasl;
