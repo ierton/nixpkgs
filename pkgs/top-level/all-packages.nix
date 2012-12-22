@@ -3683,7 +3683,7 @@ let
     callPackage ../development/libraries/freeglut { };
 
   freetype = callPackage ../development/libraries/freetype {
-     useEncumberedCode = getConfig [ "freetype" "useEncumberedCode" ] false;
+     useEncumberedCode = config.freetype.useEncumberedCode or false; # getConfig [ "freetype" "useEncumberedCode" ] false;
   };
 
   fribidi = callPackage ../development/libraries/fribidi { };
