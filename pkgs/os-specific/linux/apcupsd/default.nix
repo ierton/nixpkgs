@@ -33,6 +33,7 @@ stdenv.mkDerivation rec {
   meta = {
     description = "APC UPS daemon with integrated tcp/ip remote shutdown";
     platforms = stdenv.lib.platforms.linux;
+    maintainers = [stdenv.lib.maintainers.smironov];
   };
 }
 
