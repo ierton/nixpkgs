@@ -5394,4 +5394,22 @@ pythonPackages = python.modules // rec {
     };
   };
 
+  gdata = buildPythonPackage rec {
+    name = "gdata-${version}";
+    version = "2.0.17";
+
+    src = fetchurl rec {
+      url = "https://pypi.python.org/packages/source/g/gdata/gdata-${version}.tar.gz";
+      sha256 = "ad72274532d726304733c5bfc01bffab8c7a34ce7e730deed849aecb62c5aa2d";
+    };
+
+    # error: invalid command 'test'
+    doCheck = false;
+
+    meta = {
+      homepage = http://code.google.com/p/gdata-python-client/;
+      description = "Python client library for Google data APIs";
+    };
+  };
+
 }; in pythonPackages
