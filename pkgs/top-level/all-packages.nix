@@ -2086,6 +2086,7 @@ let
       libc = libcCross1;
       binutils = binutilsCross;
       cross = assert crossSystem != null; crossSystem;
+      name = assert crossSystem != null; gcc.name + "-static-" + crossSystem.config;
   };
 
   # Only needed for mingw builds
@@ -9101,5 +9102,35 @@ let
   misc = import ../misc/misc.nix { inherit pkgs stdenv; };
 
   bullet = callPackage ../development/libraries/bullet {};
+
+  # Generate cross toolchain stage static (no libc). cs is a crossSystem
+  # attribute set, see top-level/release-cross.nix as an example
+  cross_toolchain_stage_static = cs :
+    let
+      pkgsCross = (import ./all-packages.nix) {
+        inherit system bootStdenv noSysDirs gccWithCC gccWithProfiling config;
+        crossSystem = cs;
+      };
+    in {
+      gcc = pkgsCross.gccCrossStageStatic;
+      binutils = pkgsCross.binutilsCross;
+    };
+
+  i386_toolchain = cross_toolchain_stage_static {
+    config = "i386-unknown-elf";
+    arch = "i386";
+    libc = null;
+    platform = {};
+  };
+
+  arm_toolchain = cross_toolchain_stage_static {
+    config = "arm-unknown-linux-gnueabi";  
+    bigEndian = false;
+    arch = "arm";
+    float = "soft";
+    withTLS = true;
+    platform = {};
+    libc = null;
+  };
 
 }; in pkgs
