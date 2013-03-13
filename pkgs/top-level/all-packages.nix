@@ -5676,7 +5676,10 @@ let
 
   bcm43xx = callPackage ../os-specific/linux/firmware/bcm43xx { };
 
-  bluez = callPackage ../os-specific/linux/bluez { };
+  bluez4 = callPackage ../os-specific/linux/bluez { };
+  bluez5 = callPackage ../os-specific/linux/bluez/bluez5.nix { };
+
+  bluez = bluez4;
 
   beret = callPackage ../games/beret { };
 
