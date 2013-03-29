@@ -815,6 +815,8 @@ let
 
   gawk = callPackage ../tools/text/gawk { };
 
+  gcalcli = callPackage ../applications/misc/gcalcli { };
+
   gdmap = callPackage ../tools/system/gdmap { };
 
   genext2fs = callPackage ../tools/filesystems/genext2fs { };
