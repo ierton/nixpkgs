@@ -2115,6 +2115,7 @@ let
     libc = libcCross;
     binutils = binutilsCross;
     cross = assert crossSystem != null; crossSystem;
+    name = assert crossSystem != null; gcc.name + "-static-" + crossSystem.config;
   };
 
   gcc43_multi = lowPrio (wrapGCCWith (import ../build-support/gcc-wrapper) glibc_multi (gcc43.gcc.override {
@@ -9121,6 +9122,18 @@ let
       binutils = pkgsCross.binutilsCross;
     };
 
+  cross_toolchain_stage_final = cs :
+    let
+      pkgsCross = (import ./all-packages.nix) {
+        inherit system bootStdenv noSysDirs gccWithCC gccWithProfiling config;
+        crossSystem = cs;
+      };
+    in {
+      gcc = pkgsCross.gccCrossStageFinal;
+      binutils = pkgsCross.binutilsCross;
+      glibc = pkgsCross.glibc;
+    };
+
   i386_toolchain = cross_toolchain_stage_static {
     config = "i386-unknown-elf";
     arch = "i386";
@@ -9136,6 +9149,27 @@ let
     withTLS = true;
     platform = {};
     libc = null;
+  };
+
+  arm_toolchain_bare = cross_toolchain_stage_static {
+    config = "arm-eabi";  
+    bigEndian = false;
+    arch = "arm";
+    float = "soft";
+    withTLS = true;
+    platform = {};
+    libc = null;
+  };
+
+
+  arm_toolchain_final = cross_toolchain_stage_final {
+    config = "arm-unknown-linux-gnueabi";  
+    bigEndian = false;
+    arch = "arm";
+    float = "soft";
+    withTLS = true;
+    platform = platforms.sheevaplug;
+    libc = "glibc";
   };
 
 }; in pkgs
