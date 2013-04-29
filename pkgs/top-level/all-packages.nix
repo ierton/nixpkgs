@@ -2970,6 +2970,10 @@ let
 
   avrgcclibc = callPackage ../development/misc/avr-gcc-with-avr-libc {};
 
+  arm_gcc_sam = callPackage ../development/misc/arm-gcc-sam {
+    gmp = gmp4;
+  };
+
   avr8burnomat = callPackage ../development/misc/avr8-burn-omat { };
 
   sourceFromHead = import ../build-support/source-from-head-fun.nix {
